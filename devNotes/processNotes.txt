@@ -1,0 +1,194 @@
+Process Notes for React Event Handlers Study
+============================================
+
+
+
+
+About Process Notes
+===================
+"Process Notes" is a step-by-step workflow document that outlines the "phases" of my study/app development and the successive steps taken at each
+milestone of the examination. In the case of studies, the process notes might be eschewed in favor of the main Readme document in the repository, 
+mostly because of the advantage in formatting and accessibility. However, I will put additional notes and resource links that might be helpful. In 
+the case of application development, groups of related steps are combined into "phase" modules so that they can be reorganized and refined in 
+post-review. This has proven to be EXTREMELY helpful in learning (i.e. Feynman technique (https://fs.blog/2012/04/feynman-technique/)) and refining 
+workflow so I can improve my process in future projects. It also has come in handy for some tricky bug fixes not only for past projects, but this 
+one as well so I would urge you to consider at least doing a rough summary for your own benefit.
+
+
+
+Objective of Study
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+========SIMPLE EXAMPLE=====================
+Reforment with emphasis on event handlers
+===========================================
+How do you implement event listeners?
+===========================================
+* Events and state go hand in hand.
+* It is VERY common to update state in response to a users action (i.e. submitting the form, interaction with a control, clicking a button, etc.).
+
+For this example, we'll make a basic clicker. We set the state at zero for the initial count and then reference it in the component using this.state.count.
+---------------------------------------------------------
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { 
+        count: 0                                                  // set the initial state to 0 so that when you call this.state, it will be 0.
+      }
+    }
+    render() {
+      return (
+        <div>
+          <p>The current count: {this.state.count}</p>
+          <button>
+            Add 1
+          </button>
+        </div>
+      )
+    }
+  }
+---------------------------------------------------------
+
+## Add the "onClick" prop to wire the button to trigger when clicked.
+To wire code to be triggered when a button is clicked, we need to add a prop to the BUTTON JSX ITSELF!
+Remember that within the props object there are a number properties you can select. IN this case, we want "onClick".
+---------------------------------------------------------------------------
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { 
+        count: 0 
+      }
+    }
+    render() {
+      return (
+        <div>
+          <p>The current count: {this.state.count}</p>
+          <button onClick={function() { console.log('clicked!') }} >        // add the "onClick" prop.
+            Add 1
+          </button>
+        </div>
+      )
+    }
+  }
+----------------------------------------------------------------------------
+
+## To make code tidy, move the event handler to a seperate method.
+However, a full event handler is going to be very cluttered, so its best to move the event handler
+to a method on the class called "handleButtonClick"
+---------------------------------------------------------------------------
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { 
+        count: 0 
+      }
+    }
+    handleButtonClick() {                                                  // 2. Inserted the "handleClickButton" method before render.
+      console.log(this.state.count);                                       // 3. and to test, when you click "add 1", it will show the clicks you make at that time.
+    } 
+    render() {
+      return (
+        <div>
+          <p>The current count: {this.state.count}</p>
+          <button onClick={this.handleButtonClick} >                        // 1. changed to a method on the class called "handleButtonClick"
+            Add 1
+          </button>
+        </div>
+      )
+    }
+  }
+----------------------------------------------------------------------------
+
+## Use an arrow function to avoid typeerrors.
+At this point, you will get an error that reads "TypeError: Cannot read property 'state' of undefined". Apparently this is a bug. This means
+that we are trying to read a property called state ona variable thats currently set to undefined.  We want to read "this",
+but right now it is set to undefined. To solve this, use an ARROW FUNCTION...not a function. Why? Because the arrow function makes sure that
+the "this" is refering to the class instance.
+------------------------------------------------------------------------
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { 
+        count: 0 
+      }
+    }
+    handleButtonClick = () => {                                               // use an arrow function for the method to avoid the error bug.
+      console.log(this.state.count)
+    }
+    render() {
+      return (
+        <div>
+          <p>The current count: {this.state.count}</p>
+          <button onClick={this.handleButtonClick}>
+            Add 1
+          </button>
+        </div>
+      )
+    }
+  }
+------------------------------------------------------------------------
+
+
+## To set the state, use this.setState method.
+When you use "this.setState", you update the state of a component that has been mounted and pass in an object to "merge" over the toMatchSnapshot
+of an exisiting state (like Object.assign).  In the example case below, what we are doing is updating the state of count and merging the initial
+state to the value of newCount.   
+
+Note here that state updates go hand-in-hand with event handlers. In this example case, the the state update occurs in the "handleButtonClick"
+action the user takes. But keep in mind the "this" problem which is a bug that needs to be fixed in future versions.
+
+==clean up==
+Now that the event listener is properly hooked up and setup in sich a way where it avoid the bug error, you can add your code
+for the onClick action. At this point in the example, we have an exisiting count of 0 supplied by the current state. 
+
+When the user clicks on the button, the "onClick" prop calls "this.handleButtonClick" which in turn executes the action we want 
+to happen when the user clicks. In this case, we want to increment by one for every click the user makes. 
+
+To implement this, we first create a variable called "newCount" and store it as a constant. The value will be the current count, 
+(this.state.count) plus 1.
+
+Then, to set the new state, use this.setState with the incrementing variable we just created.
+-------------------------------------------------------------------------
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { 
+        count: 0 
+      }
+    }
+    handleButtonClick = () => {                                           
+      const newCount = this.state.count + 1;                                 // variable that increments the count by 1.
+      this.setState({                                                        // sets the new state count.
+        count: newCount
+      })
+    }
+    render() {
+      return (
+        <div>
+          <p>The current count: {this.state.count}</p>
+          <button onClick={this.handleButtonClick}>
+            Add 1
+          </button>
+        </div>
+      )
+    }
+  }
+-------------------------------------------------------------------------
