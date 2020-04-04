@@ -112,9 +112,22 @@ Tabs workflow
     }
   ---------------------------------------------------------------------
 
+
+
 //// At this point, the component should be working fine and testing fine.
 
-//
+
+
+// Render the buttons
+5. 
+
+
+
+
+
+
+
+
 
 
 
@@ -122,7 +135,7 @@ Tabs workflow
 
 
 ========SIMPLE EXAMPLE=====================
-Reforment with emphasis on event handlers
+Reform with emphasis on event handlers
 ===========================================
 How do you implement event listeners?
 ===========================================
