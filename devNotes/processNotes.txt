@@ -39,6 +39,37 @@ and disappear from the page by meeting certain conditions
 
 
 
+Tabs workflow
+==============
+1. Create a test for the Tabs component.
+  --------------------------------------------------------------------
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import Tabs from './Tabs';
+
+    describe(`Tabs Component`, () => {                                       // test suite for tabs component...
+      it('renders without errors', () => {                                   // ... that tests for rendering without error:
+        const div = document.createElement('div');                           // Variable creates a div element.
+        ReactDOM.render(<Tabs />, div);                                      // ... and renders the element "Tabs" to the container "div".
+        ReactDOM.unmountComponentAtNode(div);                                // Then remove the mounted React component
+      })
+    })
+  --------------------------------------------------------------------
+
+2. Create a basic component.
+  --------------------------------------------------------------------
+    import React from "react";
+
+    class Tabs extends React.Component {                                     // "Tabs" component.
+      render() {
+        return <div />                                                       // ... that renders a div (for now).
+      }
+    }
+
+    export default Tabs;
+  --------------------------------------------------------------------
+
+
 
 
 
