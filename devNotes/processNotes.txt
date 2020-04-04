@@ -18,6 +18,20 @@ one as well so I would urge you to consider at least doing a rough summary for y
 
 Objective of Study
 ==================
+To outline the process to conditionally render nodes based on state and write event handlers.
+
+
+
+
+
+
+
+
+
+What is conditional rendering?
+==============================
+Conditional rendering means rendering certain nodes only at certain times.
+
 
 
 
