@@ -84,8 +84,28 @@ Tabs workflow
   ---------------------------------------------------------------------
 
 
+  4. Add an external tabsProp and add it as a prop of the Tabs component.
+  * For tabs, we plan on having a collapsible menu of content items. To do this we need 
+  to create a tabsProp variable with an array of objects that have each and every tab we want 
+  to be selectable.
+  ---------------------------------------------------------------------
+    const tabsProp = [                                                     // external tabs prop
+      { name: 'First tab',
+        content: 'Lorem ipsum dolor sit amet ...' },
+      { name: 'Second tab',
+        content: 'Laboriosam exercitationem ...' },
+      { name: 'Third tab',
+        content: 'Fugit, sapiente aspernatur...' },
+    ];
 
-
+    class App extends React.Component {
+      render() {
+        return <div>
+          <Tabs tabs={tabsProp} />                                         // tabsProp as a prop to this Tabs component instance.
+        </div>
+      }
+    }
+  ---------------------------------------------------------------------
 
 
 
