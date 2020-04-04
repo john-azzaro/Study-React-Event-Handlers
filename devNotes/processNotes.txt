@@ -41,6 +41,9 @@ and disappear from the page by meeting certain conditions
 
 Tabs workflow
 ==============
+
+// Create the TEST.
+====================
 1. Create a test for the Tabs component.
   --------------------------------------------------------------------
     import React from 'react';
@@ -56,6 +59,7 @@ Tabs workflow
     })
   --------------------------------------------------------------------
 
+// Create the component
 2. Create a basic component.
   --------------------------------------------------------------------
     import React from "react";
@@ -69,6 +73,7 @@ Tabs workflow
     export default Tabs;
   --------------------------------------------------------------------
 
+// TEST.
   3. Try the test to see if it works.
   ---------------------------------------------------------------------
     PASS src/state/state/Tabs.test.js
@@ -83,7 +88,7 @@ Tabs workflow
 
   ---------------------------------------------------------------------
 
-
+// Add props for accordion
   4. Add an external tabsProp and add it as a prop of the Tabs component.
   * For tabs, we plan on having a collapsible menu of content items. To do this we need 
   to create a tabsProp variable with an array of objects that have each and every tab we want 
@@ -107,9 +112,9 @@ Tabs workflow
     }
   ---------------------------------------------------------------------
 
+//// At this point, the component should be working fine and testing fine.
 
-
-
+//
 
 
 
