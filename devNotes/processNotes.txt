@@ -119,7 +119,26 @@ Tabs workflow
 
 
 // Render the buttons
-5. 
+5. Render the Buttons for each of the buttons of the accordion:
+  * For the buttons themselves, we create a constant called "buttons" that will map off the tabs array to make an array 
+    of buttons. In this case, we'll use the name.
+  --------------------------------------------------------------------------
+    class Tabs extends React.Component {
+      static defaultProps = { tabs: [] };                                    // First, set defaultProps to access the "tabs" in props.
+      render() {
+        const buttons = this.props.tabs.map((tab, index) => (                // "buttons" maps props.tabs and for each item in the index, the tab.name goes inside a button element.
+          <button key={index}>
+            {tab.name}
+          </button>
+        ))
+        return (                                                             // And then "buttons" is returned inside a seperate div.
+          <div>
+            {buttons}
+          </div>
+        )
+      }
+    }
+  --------------------------------------------------------------------------
 
 
 
