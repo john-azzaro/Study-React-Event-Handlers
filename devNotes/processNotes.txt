@@ -62,12 +62,26 @@ Tabs workflow
 
     class Tabs extends React.Component {                                     // "Tabs" component.
       render() {
-        return <div />                                                       // ... that renders a div (for now).
+        return <div />                                                       // ... that renders a div (for now just to see if the tests work).
       }
     }
 
     export default Tabs;
   --------------------------------------------------------------------
+
+  3. Try the test to see if it works.
+  ---------------------------------------------------------------------
+    PASS src/state/state/Tabs.test.js
+      Tabs Component
+        √ renders without errors (13ms)
+
+    Test Suites: 1 passed, 1 total
+    Tests:       1 passed, 1 total
+    Snapshots:   0 total
+    Time:        2.587s
+    Ran all test suites related to changed files.
+
+  ---------------------------------------------------------------------
 
 
 
