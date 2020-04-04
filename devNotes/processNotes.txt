@@ -30,7 +30,8 @@ To outline the process to conditionally render nodes based on state and write ev
 
 What is conditional rendering?
 ==============================
-Conditional rendering means rendering certain nodes only at certain times.
+Conditional rendering means rendering certain nodes only at certain times. With conditional rendering, state can be used to make content appear 
+and disappear from the page by meeting certain conditions
 
 
 
