@@ -3,10 +3,18 @@ import React from "react";
 class Tabs extends React.Component {
   static defaultProps = { tabs: [] };
   render() {
-    const buttons = this.props.tabs.map((tab, index) => (
-      <button key={index}>
-        {tab.name}
-      </button>
+    
+    renderButtons() {
+      return this.props.tabs.map((tab, index) => (
+        <button key={index}>
+          {tab.name}
+        </button>
+      ));
+    }
+    
+    
+    
+    const buttons = 
     ));
     const currentTab = this.props.tabs[0];
     return (

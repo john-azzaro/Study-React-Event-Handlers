@@ -172,10 +172,17 @@ Tabs workflow
 
 
 // Create a snapshot of the component so far.
+* To create a snapshot, ,make sure you install 'react-test-renderer' as a local dependency and then import
+  the package to your test file (i.e. import renderer from 'react-test-renderer';).
+* Also remember that when you run this test, a snapshots folder will be created in your src folder and should
+  be committed to your repository for others to reference as well.
 -----------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------
 
+
+
+// Refactoring code to make it more readable.
 
 
 
