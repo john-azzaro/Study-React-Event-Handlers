@@ -7,7 +7,7 @@ class Tabs extends React.Component {
       <button key={index}>
         {tab.name}
       </button>
-    ))
+    ));
     return (
       <div>
         {buttons}
