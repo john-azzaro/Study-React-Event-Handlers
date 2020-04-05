@@ -4,18 +4,15 @@ class Tabs extends React.Component {
   static defaultProps = { tabs: [] };
   render() {
     
-    renderButtons() {
-      return this.props.tabs.map((tab, index) => (
-        <button key={index}>
-          {tab.name}
-        </button>
-      ));
-    }
     
-    
-    
-    const buttons = 
+    const buttons = this.props.tabs.map((tab, index) => (
+      <button key={index}>
+        {tab.name}
+      </button>
     ));
+
+
+    
     const currentTab = this.props.tabs[0];
     return (
       <div>

@@ -143,7 +143,7 @@ Tabs workflow
   --------------------------------------------------------------------------
 
 
-// Render first tab by default
+6. Render first tab by default
 * This means that the content for the first tab is going to show. To execute this, we need ot create a current tab const
   and set this to the first prop (tab.props.tab[0]);
   --------------------------------------------------------------------------
@@ -155,11 +155,11 @@ Tabs workflow
             {tab.name}
           </button>
         ));
-        const currentTab = this.props.tabs[0];                               //
+        const currentTab = this.props.tabs[0];                               // current tab set at index of 0 (first in the arracy of objects)/
         return (
           <div>
             {buttons}
-            {this.props.tabs.length && (
+            {this.props.tabs.length && (                                     // content.
               <div className='content'>
                 {currentTab.content}
               </div>
@@ -171,18 +171,50 @@ Tabs workflow
   --------------------------------------------------------------------------
 
 
-// Create a snapshot of the component so far.
+7. Create a snapshot of the component so far.
 * To create a snapshot, ,make sure you install 'react-test-renderer' as a local dependency and then import
   the package to your test file (i.e. import renderer from 'react-test-renderer';).
 * Also remember that when you run this test, a snapshots folder will be created in your src folder and should
   be committed to your repository for others to reference as well.
------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+      const tabsProp = [
+        { name: 'First tab',
+          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam exercitationem quos consectetur expedita consequatur. Fugit, sapiente aspernatur corporis velit, dolor eum reprehenderit provident ipsam, maiores incidunt repellat! Facilis, neque doloremque.' },
+        { name: 'Second tab',
+          content: 'Laboriosam exercitationem quos consectetur expedita consequatur. Fugit, sapiente aspernatur corporis velit, dolor eum reprehenderit provident ipsam, maiores incidunt repellat! Facilis, neque doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit.' },
+        { name: 'Third tab',
+          content: 'Fugit, sapiente aspernatur corporis velit, dolor eum reprehenderit provident ipsam, maiores incidunt repellat! Facilis, neque doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam exercitationem quos consectetur expedita consequatur.' },
+      ];
 
------------------------------------------------------------------------------
+      it('renders the first tab by default', () => {
+        const tree = renderer.create(<Tabs tabs={tabsProp} />).toJSON()
+        expect(tree).toMatchSnapshot()
+      })
+  -----------------------------------------------------------------------------
 
 
 
-// Refactoring code to make it more readable.
+8. Refactoring code to make it more readable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
