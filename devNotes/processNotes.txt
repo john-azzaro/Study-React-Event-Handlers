@@ -216,7 +216,7 @@ Tabs workflow
         render() { 
           return (
             <div>
-              {this.renderButtons()}                                  // Buttons function moved to a seperate function.
+              {this.renderButtons()}                                  // Buttons function moved to a seperate function (and called with parentheses).
               {this.props.tabs.length && this.renderContent()}        // Content moved to a seperate function.
             </div>
           )
@@ -225,6 +225,11 @@ Tabs workflow
   -----------------------------------------------------------------
 
 
+9. Hookup the buttons 
+  * For the buttons, onClick we want the buttons to show thier respective content.
+  ------------------------------------------------------------------
+
+  ------------------------------------------------------------------
 
 
 
