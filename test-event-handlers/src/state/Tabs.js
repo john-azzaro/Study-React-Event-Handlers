@@ -8,9 +8,15 @@ class Tabs extends React.Component {
         {tab.name}
       </button>
     ));
+    const currentTab = this.props.tabs[0];
     return (
       <div>
         {buttons}
+        {this.props.tabs.length && (
+          <div className='content'>
+            {currentTab.content}
+          </div>
+        )}
       </div>
     )
   }

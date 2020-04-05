@@ -143,6 +143,32 @@ Tabs workflow
   --------------------------------------------------------------------------
 
 
+// Render first tab by default
+* This means that the content for the first tab is going to show. To execute this, we need ot create a current tab const
+  and set this to the first prop (tab.props.tab[0]);
+  --------------------------------------------------------------------------
+    class Tabs extends React.Component {
+      static defaultProps = { tabs: [] };
+      render() {
+        const buttons = this.props.tabs.map((tab, index) => (
+          <button key={index}>
+            {tab.name}
+          </button>
+        ));
+        const currentTab = this.props.tabs[0];                               //
+        return (
+          <div>
+            {buttons}
+            {this.props.tabs.length && (
+              <div className='content'>
+                {currentTab.content}
+              </div>
+            )}
+          </div>
+        )
+      }
+    }
+  --------------------------------------------------------------------------
 
 
 
