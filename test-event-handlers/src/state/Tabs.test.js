@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Tabs from './Tabs';
+import renderer from 'react-test-renderer';
 
 describe(`Tabs Component`, () => {
   it('renders without errors', () => {
@@ -8,7 +9,7 @@ describe(`Tabs Component`, () => {
     ReactDOM.render(<Tabs />, div);
     ReactDOM.unmountComponentAtNode(div);  
   });
-  
+
   const tabsProp = [
     { name: 'First tab',
       content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam exercitationem quos consectetur expedita consequatur. Fugit, sapiente aspernatur corporis velit, dolor eum reprehenderit provident ipsam, maiores incidunt repellat! Facilis, neque doloremque.' },
