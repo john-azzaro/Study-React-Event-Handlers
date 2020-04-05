@@ -2,17 +2,12 @@ import React from "react";
 
 class Tabs extends React.Component {
   static defaultProps = { tabs: [] };
-  render() {
-    
-    
+  render() { 
     const buttons = this.props.tabs.map((tab, index) => (
       <button key={index}>
         {tab.name}
       </button>
     ));
-
-
-    
     const currentTab = this.props.tabs[0];
     return (
       <div>
