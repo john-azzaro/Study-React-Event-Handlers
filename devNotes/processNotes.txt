@@ -20,6 +20,14 @@ Objective of Study
 ==================
 To outline the process to conditionally render nodes based on state and write event handlers.
 
+When building React components, you often will want to render certain elements under certain conditions. To do this you need to use conditional rendering.
+Using state and conditional logic, we can show or hide certain elements in a render. For example, you can have a "Tabs" component that has three buttons that,
+when clicked, will "render" one content tab.
+
+IN order to test components that update state and conditions based on events, like button clicks, you need to you the testing library called "enzyme". 
+Enzyme is a test helper that you can use to create a subtree of elements using a shallow render. Within the subtree of elements, we can traverse of specific
+elements and simulate events on those elements, such as clicks.
+
 
 
 
@@ -289,8 +297,20 @@ Tabs workflow
   --------------------------------------------------------------------
 
 
-11. 
 
+
+
+How do you test Event listeners?
+================================
+
+To test a component more comprehensively, you should take another snapshot.
+However, you cant click on buttons in tests using ```react-test-renderer```.
+In order to test buttons is "enzyme".
+Enzyme is a tetsing library purposefully built for testing React components.
+Enzyme has many features, including inspecting state, debugging, traversing nodes, etc.
+
+
+Install enzyme:   npm install enzyme enzyme-adapter-react-16 --save-dev
 
 
 
