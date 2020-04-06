@@ -227,8 +227,40 @@ Tabs workflow
 
 9. Hookup the buttons 
   * For the buttons, onClick we want the buttons to show thier respective content.
+  * First, instead of hardcoding the state of 0 in the current tab, we create a state property and set the 
+     currentTabIndex to 0 and then pass that value in to the render content.
   ------------------------------------------------------------------
-    
+    class Tabs extends React.Component {
+      static defaultProps = { 
+        tabs: [] 
+      };
+      state = {
+        currentTabIndex: 0                                                     // state of current tab
+      };
+      renderButtons() {
+        return this.props.tabs.map((tab, index) => (
+          <button key={index}>
+            {tab.name}
+          </button>
+        ))
+      }
+      renderContent() {
+        const currentTab = this.props.tabs[this.state.currentTabIndex];         // currentTab current state
+        return (
+          <div className='content'>
+            {currentTab.content}
+          </div>
+        )
+      } 
+      render() { 
+        return (
+          <div>
+            {this.renderButtons()}
+            {this.props.tabs.length && this.renderContent()}
+          </div>
+        )
+      }
+    }
   ------------------------------------------------------------------
 
 

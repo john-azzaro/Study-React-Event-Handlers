@@ -15,7 +15,7 @@ class Tabs extends React.Component {
     ))
   }
   renderContent() {
-    const currentTab = this.props.tabs[this.state.currentTabIndex]         // currentTab current state
+    const currentTab = this.props.tabs[this.state.currentTabIndex];         // currentTab current state
     return (
       <div className='content'>
         {currentTab.content}
