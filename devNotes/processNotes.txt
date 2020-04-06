@@ -313,7 +313,141 @@ Enzyme has many features, including inspecting state, debugging, traversing node
 Install enzyme:   npm install enzyme enzyme-adapter-react-16 --save-dev
 
 
+Testing event listeners
+To test the component more comprehensively, we should take another snapshot after clicking a button (at the very least). This would show us that the content updates when a button is clicked.
 
+Unfortunately, we can't click on buttons in tests using react-test-renderer. The most popular library to help us click on buttons is enzyme. Enzyme is a testing library purposefully built for testing React components. It has many features such as inspecting state, debugging, traversing nodes, etc... We're going to focus on using Enzyme for testing event handlers here.
+
+First, install Enzyme as a development dependency. There's also an enzyme-adapter-react-16 which we can use to tell Enzyme which version of React we're working with. So we'll install both.
+
+npm install enzyme enzyme-adapter-react-16 --save-dev
+With these installed, we can configure Enzyme with the adapter. Within create-react-app, Jest will look for a file in a specific location for configuration, ./src/setupTests.js.
+
+Create the file src/setupTests.js and put this inside it to tell Enzyme to work with React version 16.
+
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
+Once you've created this file and contents, make sure you stop your tests (Ctrl-c) and start them again with npm test.
+
+With the configuration in place, we can use Enzyme inside our Tabs.test.js file.
+
+Let's make a new test for when there are no tabs passed as a prop to the component.
+
+it('renders empty given no tabs', () => {
+
+})
+Enzyme has dozens of commands and ways to be used. We're going to work with a function called shallow. The shallow function in Enzyme will create a wrapper instance of our component that we can interact with.
+
+We can use shallow the same way as the react-test-renderer create method. Shallow is very similar to this.
+
+import { shallow } from 'enzyme'
+
+/* now showing all the content of the file */
+
+it('renders empty given no tabs', () => {
+  const wrapper = shallow(<Tabs />)
+})
+The wrapper allows us to find nodes within this component's tree; it also allows us to simulate events on nodes.
+
+To use the wrapper with Jest's snapshot functionality, we'll need to create a JSON version of the component. We can use a library called enzyme-to-json that will convert a wrapper to a JSON object.
+
+npm install enzyme-to-json --save-dev
+Now create a JSON version of the wrapper.
+
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
+
+/* now showing all the content of the file */
+
+it('renders empty given no tabs', () => {
+  const wrapper = shallow(<Tabs />)
+  toJson(wrapper)
+})
+Finally, we can create a snapshot of the component instance from the JSON.
+
+it('renders empty given no tabs', () => {
+  const wrapper = shallow(<Tabs />)
+  expect(toJson(wrapper)).toMatchSnapshot()
+})
+Let's look at the snapshot generated for this test.
+
+exports[`Tabs Component renders empty given no tabs 1`] = `
+<div>
+  0
+</div>
+`;
+That looks wrong, we're rendering the length of 0! This is an easy fix, we can coerce the .length call inside render into a boolean using not-not, !!.
+
+render() {
+  return (
+    <div>
+      {this.renderButtons()}
+      {!!this.props.tabs.length && this.renderContent()}
+    </div>
+  )
+}
+Now the snapshot is giving us an error but it's what we want, so press u in the terminal window for tests to update the snapshot.
+
+It's strange to use a mixture of both react-test-renderer and enzyme inside one test file, so let's refactor the whole file to use Enzyme before we write a test for the event handling.
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
+import Tabs from './Tabs'
+
+describe(`Tabs Component`, () => {
+  const tabsProp = [/* contents not shown */]
+
+  it('renders without errors', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<Tabs />, div);
+    ReactDOM.unmountComponentAtNode(div);
+  })
+
+  it('renders empty given no tabs', () => {
+    const wrapper = shallow(<Tabs />)
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
+
+  it('renders the first tab by default', () => {
+    const wrapper = shallow(<Tabs tabs={tabsProp} />)
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
+})
+There's a quirk with the key prop being shown in snapshots from Jest, so just press u again to update the snapshots.
+
+Now we can write a test for clicking one of the buttons! Let's create a wrapper to start with.
+
+it('closes the first tab and opens any clicked tab', () => {
+  const wrapper = shallow(<Tabs tabs={tabsProp} />)
+})
+Now we need to traverse to one of the buttons so that we can simulate clicking it! In Enzyme wrappers, we can use the find method and pass in a string. The string should be the same as a CSS selector.
+
+wrapper.find('button')
+There's a useful method on Enzyme wrappers that we can use to see the HTML for what we currently have selected, called debug. We can do a debug before and after the find to see what happens.
+
+console.log('>>> WRAPPER <<<')
+console.log(wrapper.debug())
+console.log('>>> FIND(BUTTON) <<<')
+console.log(wrapper.find('button').debug())
+The debug output for .find('button') shows all of the buttons! That's right, a CSS selector will find all of a certain selection. We only want to get one button. We don't want the first button because that's the button that's already active, let's only use the second button. To select only one element from a list inside a wrapper, use the .at() method with an index number.
+
+console.log(wrapper.find('button').at(1).debug())
+This gives us the second button.
+
+With the second button, we can remove the debug and simulate a click event. To simulate clicking the button, we use the .simulate() method and give it a string as an event type, in this case 'click'. Then we can take a new snapshot after simulating the click.
+
+it('closes the first tab and opens any clicked tab', () => {
+  const wrapper = shallow(<Tabs tabs={tabsProp} />)
+  wrapper.find('button').at(1).simulate('click')
+  expect(toJson(wrapper)).toMatchSnapshot()
+})
+This generated a new snapshot for the second tab being active, you can see it inside the src/state/__snapshots__/Tabs.test.js.snap file.
+
+To test that this test works, temporarily comment out the setState call inside the Tab component to see Jest point out it isn't working. Then uncomment the call to restore the functionality.
 
 
 
