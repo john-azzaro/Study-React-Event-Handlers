@@ -5,17 +5,20 @@ class Tabs extends React.Component {
     tabs: [] 
   };
   state = {
-    currentTabIndex: 0                                                     // state of current tab
+    currentTabIndex: 0    
   };
+  handleButtonClick = () => {                         
+    console.log('button clicked!')
+  }
   renderButtons() {
     return this.props.tabs.map((tab, index) => (
-      <button key={index}>
+      <button key={index} onClick={this.handleButtonClick}>   
         {tab.name}
       </button>
     ))
   }
   renderContent() {
-    const currentTab = this.props.tabs[this.state.currentTabIndex];         // currentTab current state
+    const currentTab = this.props.tabs[this.state.currentTabIndex];       
     return (
       <div className='content'>
         {currentTab.content}

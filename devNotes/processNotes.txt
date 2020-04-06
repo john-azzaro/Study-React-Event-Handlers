@@ -230,40 +230,79 @@ Tabs workflow
   * First, instead of hardcoding the state of 0 in the current tab, we create a state property and set the 
      currentTabIndex to 0 and then pass that value in to the render content.
   ------------------------------------------------------------------
-    class Tabs extends React.Component {
-      static defaultProps = { 
-        tabs: [] 
-      };
-      state = {
-        currentTabIndex: 0                                                     // state of current tab
-      };
-      renderButtons() {
-        return this.props.tabs.map((tab, index) => (
-          <button key={index}>
-            {tab.name}
-          </button>
-        ))
+      class Tabs extends React.Component {
+        static defaultProps = { 
+          tabs: [] 
+        };
+        state = {
+          currentTabIndex: 0                                                     // state of current tab
+        };
+        renderButtons() {
+          return this.props.tabs.map((tab, index) => (
+            <button key={index}>
+              {tab.name}
+            </button>
+          ))
+        }
+        renderContent() {
+          const currentTab = this.props.tabs[this.state.currentTabIndex];         // currentTab current state
+          return (
+            <div className='content'>
+              {currentTab.content}
+            </div>
+          )
+        } 
+        render() { 
+          return (
+            <div>
+              {this.renderButtons()}
+              {this.props.tabs.length && this.renderContent()}
+            </div>
+          )
+        }
       }
-      renderContent() {
-        const currentTab = this.props.tabs[this.state.currentTabIndex];         // currentTab current state
-        return (
-          <div className='content'>
-            {currentTab.content}
-          </div>
-        )
-      } 
-      render() { 
-        return (
-          <div>
-            {this.renderButtons()}
-            {this.props.tabs.length && this.renderContent()}
-          </div>
-        )
-      }
-    }
   ------------------------------------------------------------------
 
-
+  10. Add the basic event handler to the buttons.
+  * And to add a basic event handler, all you need to do is add a "onClick" prop that accesses 
+    an exteranl "handleButtonClick" function. For now, all you need to do is test it by logging
+    a simple message to the console.
+  --------------------------------------------------------------------
+      class Tabs extends React.Component {
+          static defaultProps = { 
+            tabs: [] 
+          };
+          state = {
+            currentTabIndex: 0    
+          };
+          handleButtonClick = () => {                                            // And add external function with Initial button click notification.
+            console.log('button clicked!')
+          }
+          renderButtons() {
+            return this.props.tabs.map((tab, index) => (
+              <button key={index} onClick={this.handleButtonClick}>              // click event handler add to button with "onClick"
+                {tab.name}
+              </button>
+            ))
+          }
+          renderContent() {
+            const currentTab = this.props.tabs[this.state.currentTabIndex];       
+            return (
+              <div className='content'>
+                {currentTab.content}
+              </div>
+            )
+          } 
+          render() { 
+            return (
+              <div>
+                {this.renderButtons()}
+                {this.props.tabs.length && this.renderContent()}
+              </div>
+            )
+          }
+        }
+  --------------------------------------------------------------------
 
 
 
