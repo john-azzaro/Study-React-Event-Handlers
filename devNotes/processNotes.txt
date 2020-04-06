@@ -275,33 +275,17 @@ Tabs workflow
           state = {
             currentTabIndex: 0    
           };
-          handleButtonClick = () => {                                            // And add external function with Initial button click notification.
-            console.log('button clicked!')
+          handleButtonClick(index) {                                                 // And add external function with Initial button click notification.
+            console.log('button clicked!', { index })
           }
           renderButtons() {
             return this.props.tabs.map((tab, index) => (
-              <button key={index} onClick={this.handleButtonClick}>              // click event handler add to button with "onClick"
+              <button key={index} onClick={() => this.handleButtonClick(index)}>      // click event handler add to button with "onClick"
                 {tab.name}
               </button>
             ))
           }
-          renderContent() {
-            const currentTab = this.props.tabs[this.state.currentTabIndex];       
-            return (
-              <div className='content'>
-                {currentTab.content}
-              </div>
-            )
-          } 
-          render() { 
-            return (
-              <div>
-                {this.renderButtons()}
-                {this.props.tabs.length && this.renderContent()}
-              </div>
-            )
-          }
-        }
+
   --------------------------------------------------------------------
 
 

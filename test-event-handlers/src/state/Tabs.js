@@ -7,8 +7,8 @@ class Tabs extends React.Component {
   state = {
     currentTabIndex: 0    
   };
-  handleButtonClick = () => {                         
-    this.setState({ currentTabIndex: index })
+  handleButtonClick(index) {
+    console.log('button clicked!', { index })
   }
   renderButtons() {
     return this.props.tabs.map((tab, index) => (
